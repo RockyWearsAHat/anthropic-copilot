@@ -1,0 +1,72 @@
+{
+  "name": "anthropic-copilot",
+  "displayName": "Anthropic Copilot",
+  "description": "A copilot to use with Anthropic's Opus Model",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.88.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "properties": {
+        "anthropic-copilot.ghostTextCreated": {
+          "type": "boolean",
+          "default": false,
+          "description": "Is there an inline suggestion currently displayed?"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "anthropic-copilot.generateCode",
+        "title": "Generate",
+        "category": "Anthropic Copilot"
+      },
+      {
+        "command": "anthropic-copilot.closeGhostText",
+        "title": "Close Ghost Text",
+        "category": "Anthropic Copilot",
+        "when": "anthropic-copilot.ghostTextCreated == true"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "anthropic-copilot.generateCode",
+        "key": "ctrl+g",
+        "mac": "cmd+g",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "anthropic-copilot.closeGhostText",
+        "key": "escape",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.88.0",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "@vscode/test-cli": "^0.0.8",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.57.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.20.1"
+  }
+}
